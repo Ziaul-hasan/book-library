@@ -1,9 +1,23 @@
 
-import { Outlet, useNavigation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigation } from 'react-router-dom'
 import './App.css'
 import Header from './Component/Header/Header'
+import { useEffect } from 'react';
 
 function App() {
+  const loc = useLocation();
+  // console.log(loc);
+  useEffect(() => {
+    if(loc.pathname === '/'){
+      document.title = 'Book-home'
+    }
+    else{
+      document.title = `Book ${loc.pathname.replace('/', '-')}`
+    }
+    if(loc.state){
+      document.title = loc.state
+    }
+  }, [loc.pathname])
   const navigation = useNavigation();
   return (
     <div className="App">
